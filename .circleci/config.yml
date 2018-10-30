@@ -55,6 +55,7 @@ jobs:
       - run: npm run bundle
       - run: npm test
   cypress-e2e-tests:
+    machine: true
     environment:
       COMPOSE_FILE: .circleci/docker-compose.cypress.yml
     docker:
