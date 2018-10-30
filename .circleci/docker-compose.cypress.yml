@@ -8,6 +8,8 @@ services:
       - redis
     ports:
       - "5000:5000"
+    args:
+      install_cypress: 1
     environment:
       PYTHONUNBUFFERED: 0
       REDASH_LOG_LEVEL: "INFO"
