@@ -57,15 +57,22 @@ jobs:
   cypress-e2e-tests:
     environment:
       COMPOSE_FILE: .circleci/docker-compose.cypress.yml
-      COMPOSE_PROJECT_NAME: cypress
     docker:
       - image: circleci/node:8
     steps:
       - setup_remote_docker
       - checkout
-      - run: npm install
-      - run: npm run cypress:install
-      - run: npm run cypress
+      - run: 
+          name: Install Cypress
+          command: npm run cypress:install
+      - run: 
+          name: Start Cypress Server
+          command: |
+            npm run cypress:server start
+            sleep 10
+      - run:
+          name: Run Cypress Tests
+          command: npm run cypress:run
   build-tarball:
     docker:
       - image: circleci/node:8
