@@ -1,15 +1,16 @@
 version: '3'
 services:
   server:
-    build: ../
+    build:
+      context: ../
+      args:
+      install_cypress: 1
     command: dev_server
     depends_on:
       - postgres
       - redis
     ports:
       - "5000:5000"
-    args:
-      install_cypress: 1
     environment:
       PYTHONUNBUFFERED: 0
       REDASH_LOG_LEVEL: "INFO"
