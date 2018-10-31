@@ -16,3 +16,4 @@ USER redash
 
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
 CMD ["server"]
+EXPOSE 5000
