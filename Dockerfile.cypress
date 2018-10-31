@@ -2,7 +2,7 @@ FROM cypress/browsers:chrome67
 
 WORKDIR /usr/src/app
 
-RUN npm install cypress
+RUN npm install cypress > /dev/null
 
 # copy cypress files and folders
 COPY cypress /usr/src/app/cypress
