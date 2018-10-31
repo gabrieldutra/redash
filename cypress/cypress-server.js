@@ -2,7 +2,7 @@
 const { execSync } = require('child_process');
 const { post } = require('request');
 
-function execSetup() {
+function execSetup(baseUrl) {
   console.log('Running setup...');
 
   const setupData = {
@@ -12,14 +12,13 @@ function execSetup() {
     org_name: 'Redash',
   };
 
-  post('http://localhost:5000/setup', { formData: setupData });
+  post(baseUrl + '/setup', { formData: setupData });
 }
 
 function startServer() {
   console.log('Starting the server...');
   execSync('docker-compose -p cypress up -d', { stdio: 'inherit' });
   execSync('docker-compose -p cypress run server create_db', { stdio: 'inherit' });
-  execSetup();
 }
 
 function stopServer() {
@@ -28,10 +27,18 @@ function stopServer() {
 }
 
 const command = process.argv[2];
+const baseUrl = process.argv[3];
 
 switch (command) {
   case 'start':
     startServer();
+    execSetup('http://localhost:5000');
+    break;
+  case 'start-ci':
+    startServer();
+    break;
+  case 'setup':
+    execSetup(baseUrl);
     break;
   case 'stop':
     stopServer();

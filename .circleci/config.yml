@@ -64,8 +64,9 @@ jobs:
       - setup_remote_docker
       - checkout
       - run: npm install
-      - run: npm run cypress:install
-      - run: npm run cypress
+      - run: npm run cypress:server start-ci
+      - run: docker-compose run server npm run cypress:server setup http://server:5000
+      - run: docker-compose run cypress ./node_modules/.bin/cypress run
   build-tarball:
     docker:
       - image: circleci/node:8
