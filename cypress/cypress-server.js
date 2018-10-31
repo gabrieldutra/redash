@@ -12,7 +12,7 @@ function execSetup() {
     org_name: 'Redash',
   };
 
-  post('http://localhost:5000/setup', { formData: setupData });
+  post('http://server:5000/setup', { formData: setupData });
 }
 
 function startServer() {
