@@ -32,7 +32,8 @@ services:
     depends_on:
       - server
       - worker
-    network_mode: 'host'
+    environment:
+      CYPRESS_baseUrl: "http://server:5000"
   redis:
     image: redis:3.0-alpine
     restart: unless-stopped
