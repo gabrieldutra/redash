@@ -65,8 +65,8 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run cypress:server start-ci
-      - run: docker-compose run cypress node ./cypress/cypress-server.js setup
-      - run: docker-compose run cypress ./node_modules/.bin/cypress run
+      - run: docker-compose run server npm run cypress:server setup
+      - run: docker-compose run server npm run cypress:run
   build-tarball:
     docker:
       - image: circleci/node:8

@@ -1,7 +1,10 @@
 version: '2'
 services:
   server:
-    build: ../
+    build:
+      context: ../
+      args:
+        install_cypress: 1
     command: dev_server
     depends_on:
       - postgres
@@ -13,8 +16,13 @@ services:
       REDASH_LOG_LEVEL: "INFO"
       REDASH_REDIS_URL: "redis://redis:6379/0"
       REDASH_DATABASE_URL: "postgresql://postgres@postgres/postgres"
+      CYPRESS_baseUrl: "http://server:5000"
+      CYPRESS_CACHE_FOLDER: "/app/cypress_cache"
   worker:
-    build: ../
+    build:
+      context: ../
+      args:
+        install_cypress: 1
     command: scheduler
     depends_on:
       - server
@@ -25,15 +33,15 @@ services:
       REDASH_DATABASE_URL: "postgresql://postgres@postgres/postgres"
       QUEUES: "queries,scheduled_queries,celery"
       WORKERS_COUNT: 2
-  cypress:
-    build:
-      context: ../
-      dockerfile: Dockerfile.cypress
-    depends_on:
-      - server
-      - worker
-    environment:
-      CYPRESS_baseUrl: "http://server:5000"
+  # cypress:
+  #   build:
+  #     context: ../
+  #     dockerfile: Dockerfile.cypress
+  #   depends_on:
+  #     - server
+  #     - worker
+  #   environment:
+  #     CYPRESS_baseUrl: "http://server:5000"
   redis:
     image: redis:3.0-alpine
     restart: unless-stopped
