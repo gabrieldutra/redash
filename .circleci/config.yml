@@ -63,9 +63,8 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - run: npm install
       - run: npm run cypress:server start-ci
-      - run: docker-compose run server npm run cypress:server setup http://server:5000
+      - run: docker-compose run cypress node ./cypress/cypress-server.js setup
       - run: docker-compose run cypress ./node_modules/.bin/cypress run
   build-tarball:
     docker:

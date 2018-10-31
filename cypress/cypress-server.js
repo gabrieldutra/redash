@@ -2,7 +2,7 @@
 const { execSync } = require('child_process');
 const { post } = require('request');
 
-function execSetup(baseUrl) {
+function execSetup() {
   console.log('Running setup...');
 
   const setupData = {
@@ -12,7 +12,7 @@ function execSetup(baseUrl) {
     org_name: 'Redash',
   };
 
-  post(baseUrl + '/setup', { formData: setupData });
+  post('http://localhost:5000/setup', { formData: setupData });
 }
 
 function startServer() {
@@ -27,18 +27,17 @@ function stopServer() {
 }
 
 const command = process.argv[2];
-const baseUrl = process.argv[3];
 
 switch (command) {
   case 'start':
     startServer();
-    execSetup('http://localhost:5000');
+    execSetup();
     break;
   case 'start-ci':
     startServer();
     break;
   case 'setup':
-    execSetup(baseUrl);
+    execSetup();
     break;
   case 'stop':
     stopServer();
