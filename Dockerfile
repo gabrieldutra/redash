@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt -r requirements_dev.txt
 RUN if [ "x$skip_ds_deps" = "x" ] ; then pip install -r requirements_all_ds.txt ; else echo "Skipping pip install -r requirements_all_ds.txt" ; fi
 
 COPY . ./
-RUN npm install && npm run bundle && npm run build &&  if [ "x$install_cypress" = "x" ] ; rm -rf node_modules ; else npm run cypress:install ; fi
+RUN npm install && npm run bundle && npm run build &&  if [ "x$install_cypress" = "x" ] ; then rm -rf node_modules ; else npm run cypress:install ; fi
 RUN chown -R redash /app
 USER redash
 
