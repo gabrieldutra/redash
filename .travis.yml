@@ -21,9 +21,8 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - npm install
-  - npm run cypress:install
 
 script:
   - npm run cypress:server start
-  - $(npm bin)/cypress run
+  - npm run cypress:install
+  - npm run cypress:run
