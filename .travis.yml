@@ -25,4 +25,5 @@ before_install:
   - npm run cypress:install
 
 script:
-  - npm run cypress
+  - npm run cypress:server start
+  - $(npm bin)/cypress run
