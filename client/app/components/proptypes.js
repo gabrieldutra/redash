@@ -14,3 +14,9 @@ export const Table = PropTypes.shape({
 });
 
 export const Schema = PropTypes.arrayOf(Table);
+
+export const InputErrors = PropTypes.shape({
+  required: PropTypes.bool,
+  minLength: PropTypes.bool,
+  email: PropTypes.bool,
+});
